@@ -215,6 +215,31 @@ Then:
 UP
 ```
 
+## Recommended MVP Deployment
+
+For this codebase in its current form, Render or Railway is a better fit than Vercel.
+
+Why:
+
+- The app is a long-running Express server (`node server/index.js`) with webhook routes.
+- Twilio expects a stable `POST /sms/twilio` endpoint.
+- Vercel can work, but it is optimized for serverless/function-style deployments and would require a structural migration you are intentionally deferring for this MVP.
+
+Use Render or Railway with these settings:
+
+- Build command: `npm install && npm run build`
+- Start command: `npm start`
+
+After deploy, configure Twilio production webhook:
+
+- Method: `POST`
+- URL: `https://YOUR_DEPLOYED_URL/sms/twilio`
+
+Important storage warning:
+
+- `data/store.json` is temporary local-file storage for MVP testing.
+- Before real users, replace it with a managed data store such as Supabase, Redis, SQLite, or Postgres.
+
 ## SMS commands
 
 ### Save baby age
