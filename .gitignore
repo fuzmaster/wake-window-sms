@@ -6,3 +6,5 @@ data/*.json
 !data/.gitkeep
 
 data/store.json
+
+data/store.json
